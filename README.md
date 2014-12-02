@@ -22,8 +22,8 @@ q is query which is jsonized array object below.
     - ["show", "your,tags,here"]
 + Show details of task (id = 'abcde')
     - ["detail", "abcde"] // normal
-    - ["detail", "abc"] // if id is unique, this is ok
-    - ["detail", "a"]  // if id is unique, this is ok
+    - ["detail", "abc"] // if id is enough unique, this is ok
+    - ["detail", "a"]  // if id is enough unique, this is ok
 + Set task (id = 'abcde')
     - ["set", "abcde", "priority=4", "tags=aaa,bbb,ccc", "summary=hogehoge", "detail=hugahuga"]
         * you can abbreviate priority to "p", tags to "t"...
