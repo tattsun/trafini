@@ -27,7 +27,7 @@ toLazy = BL.fromChunks . (:[])
 ----------------------------------------------------------------------
 -- *** main
 main :: IO ()
-main = undefined
+main = run 80 "./data.json"
 
 type Port = Int
 type ServerState = Ps.Persistent Task.Tasklist
