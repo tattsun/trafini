@@ -4,18 +4,19 @@ module Main where
 import           Control.Applicative
 import           Control.Concurrent
 import           Control.Monad.IO.Class
-import           Data.Aeson                  hiding (json)
-import qualified Data.ByteString.Char8       as B
-import qualified Data.ByteString.Lazy.Char8  as BL
+import           Data.Aeson                           hiding (json)
+import qualified Data.ByteString.Char8                as B
+import qualified Data.ByteString.Lazy.Char8           as BL
 import           Data.Maybe
-import qualified Data.Text                   as T
+import qualified Data.Text                            as T
 import           Network.Wai.Middleware.Cors
+import qualified Network.Wai.Middleware.RequestLogger as Logger
 import           Web.Scotty
 
 --
 import           Trafini.Command
-import qualified Trafini.Persistent          as Ps
-import qualified Trafini.Task                as Task
+import qualified Trafini.Persistent                   as Ps
+import qualified Trafini.Task                         as Task
 
 
 ----------------------------------------------------------------------
@@ -53,6 +54,7 @@ saveRoutine file st = do
 server :: Port -> ServerState -> IO ()
 server port ps = scotty port $ do
   middleware simpleCors
+  middleware Logger.logStdout
   post "/" $ do
     q <- toLazy <$> param "q"
     let args = decode q :: (Maybe [T.Text])
@@ -67,4 +69,4 @@ server port ps = scotty port $ do
 
 ----------------------------------------------------------------------
 -- *** for debug
-debug = run 3000 "./test.json"
+debug = run 3005 "./test.json"
