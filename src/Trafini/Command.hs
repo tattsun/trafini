@@ -37,7 +37,7 @@ exec args ps = if null args
     go = do
       tl <- Ps.get ps
       case cmd of
-       "show" -> success $ Tasks (withoutFinished $ sortTask $ Task.findByTag tl (toTags $ head opt))
+       "show" -> success $ Tasks (withoutFinished $ sortTask $ Task.findByTag tl (head $ map toTags opt))
 
        "detail" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
        "d" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
