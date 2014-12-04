@@ -19,6 +19,9 @@ data Res = NoRes
 sortTask :: [Task.Task] -> [Task.Task]
 sortTask = sortBy (\l r -> Task.taskPriority l `compare` Task.taskPriority r)
 
+withoutFinished :: [Task.Task] -> [Task.Task]
+withoutFinished = filter (\t -> not $ Task.taskFinished t)
+
 exec :: [T.Text] -> Ps.Persistent Task.Tasklist -> IO (Either String Res)
 exec args ps = if null args
                then return (Left "args can't be null.")
@@ -31,7 +34,7 @@ exec args ps = if null args
     go = do
       tl <- Ps.get ps
       case cmd of
-       "show" -> success $ Tasks (sortTask $ Task.findByTag tl opt)
+       "show" -> success $ Tasks (withoutFinished $ sortTask $ Task.findByTag tl opt)
 
        "detail" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
        "d" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
