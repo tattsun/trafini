@@ -25,6 +25,10 @@ withoutFinished = filter (\t -> not $ Task.taskFinished t)
 toTags :: T.Text -> [Task.Tag]
 toTags = T.splitOn ","
 
+safeHeadX :: [[a]] -> [a]
+safeHeadX [] = []
+safeHeadX (x:xs) = x
+
 exec :: [T.Text] -> Ps.Persistent Task.Tasklist -> IO (Either String Res)
 exec args ps = if null args
                then return (Left "args can't be null.")
@@ -37,7 +41,7 @@ exec args ps = if null args
     go = do
       tl <- Ps.get ps
       case cmd of
-       "show" -> success $ Tasks (withoutFinished $ sortTask $ Task.findByTag tl (head $ map toTags opt))
+       "show" -> success $ Tasks (withoutFinished $ sortTask $ Task.findByTag tl (safeHeadX $ map toTags opt))
 
        "detail" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
        "d" -> detail tl (Task.findByIdOne tl (head opt)) (head opt)
