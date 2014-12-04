@@ -52,6 +52,7 @@ exec args ps = if null args
        "unfinish" -> maybe (candidates tl (head opt)) (\newtl -> Ps.update ps newtl >> success NoRes)
                      (Task.setFinish tl (head opt) False)
 
+--       "delete" -> Task
 
        otherwise -> fail $ "unknown command"
 

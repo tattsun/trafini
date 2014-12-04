@@ -5,9 +5,10 @@ A simple task management server which can be accessed through http interface.
 ## How to use?
 Simply, run trafini server,
 ```
-$ trafini data.json
+$ export TRAFINI_API_KEY=your_api_key
+$ trafini 80 ./data.json
 ```
-then you can access it through http interface on port 3000.
+then you can access it through http interface on port 80.
 
 ### Example
 ```
