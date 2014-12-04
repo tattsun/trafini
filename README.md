@@ -13,7 +13,7 @@ then you can access it through http interface on port 80.
 ### Example
 ```
 POST http://localhost/
-param: {q: <your-json-query>}
+param: {q: <your-json-query>, apikey: "your_api_key"}
 ```
 q is query which is jsonized array object below.
 
